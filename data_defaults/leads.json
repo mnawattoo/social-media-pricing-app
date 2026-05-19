@@ -1,0 +1,66 @@
+[
+  {
+    "id": "lead-1684534720000",
+    "name": "DJ Shadowfox",
+    "email": "shadowfox@beatsinspace.fm",
+    "phone": "555-808-1200",
+    "businessName": "Shadowfox Music Group",
+    "selectedPlan": "Rising Artist Plan",
+    "selectedAddOns": [
+      {
+        "name": "Spotify Playlist Pitching",
+        "quantity": 2,
+        "price": 150
+      },
+      {
+        "name": "Spotify Canvas Loop Animation",
+        "quantity": 1,
+        "price": 40
+      }
+    ],
+    "finalPrice": 1139,
+    "message": "We have an upcoming EP release next month. Need hands-on playlist pitching and Canvas loop setups for the primary tracks. Let's schedule a call.",
+    "createdAt": "2026-05-18T14:32:00Z"
+  },
+  {
+    "id": "lead-1684535930000",
+    "name": "Luna Wave",
+    "email": "luna@lunawavemusic.com",
+    "phone": "555-303-9090",
+    "businessName": "Luna Wave (Indie Artist)",
+    "selectedPlan": "Independent Plan",
+    "selectedAddOns": [
+      {
+        "name": "Animated Lyric Video (up to 4m)",
+        "quantity": 1,
+        "price": 200
+      },
+      {
+        "name": "TikTok Trend Hype Campaign",
+        "quantity": 1,
+        "price": 120
+      }
+    ],
+    "finalPrice": 719,
+    "message": "Hey! I'm an independent dream pop artist. Setting up my next single campaign. The animated lyric video and TikTok strategy look perfect for my release week.",
+    "createdAt": "2026-05-19T09:15:00Z"
+  },
+  {
+    "id": "lead-1779221235-9292",
+    "name": "Test Artist",
+    "email": "test@artist.com",
+    "phone": "123-456-7890",
+    "businessName": "Test Music",
+    "selectedPlan": "Rising Artist Plan",
+    "selectedAddOns": [
+      {
+        "name": "Spotify Playlist Pitching",
+        "quantity": 1,
+        "price": 150
+      }
+    ],
+    "finalPrice": 949,
+    "message": "Can wait to check it out",
+    "createdAt": "2026-05-19T20:07:15Z"
+  }
+]
