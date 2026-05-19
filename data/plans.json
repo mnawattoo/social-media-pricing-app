@@ -1,0 +1,89 @@
+[
+  {
+    "id": "independent",
+    "name": "Independent Plan",
+    "description": "Best for rising beatmakers and indie creators establishing their social presence and brand identity.",
+    "basePrice": 399,
+    "featured": false,
+    "includedServices": [
+      "Custom beat/song cover graphics",
+      "Short-form reel/TikTok editing",
+      "Copywriting & lyric-centric captions",
+      "Scheduled post scheduling",
+      "Basic community interaction",
+      "Monthly release planning",
+      "Basic stream & reach analytics summary"
+    ],
+    "monthlyOutputs": [
+      "12 custom post graphics per month",
+      "4 short-form reels/shorts per month",
+      "3 social posts per week",
+      "Basic fan interaction support",
+      "1 core music platform included"
+    ],
+    "platformsIncluded": 1,
+    "vaHours": 0,
+    "ctaText": "Deploy Independent Plan",
+    "active": true
+  },
+  {
+    "id": "rising-artist",
+    "name": "Rising Artist Plan",
+    "description": "Best for artists with active release schedules needing a complete, hands-on rollout strategy.",
+    "basePrice": 799,
+    "featured": true,
+    "includedServices": [
+      "Everything in Independent",
+      "More graphics and promo videos",
+      "Spotify Canvas loop animation (1 track)",
+      "TikTok audio trend integration & hyping",
+      "Release calendar management",
+      "Proactive fan & playlist outreach",
+      "Monthly campaign performance review",
+      "Dedicated VA support for 2 hours",
+      "VA assists show booking & promoter emails"
+    ],
+    "monthlyOutputs": [
+      "20 custom promo graphics per month",
+      "8 short-form edited video assets per month",
+      "5 social posts per week",
+      "Proactive community engagement",
+      "2 social/music channels included",
+      "Dedicated VA: 2 hours per day"
+    ],
+    "platformsIncluded": 2,
+    "vaHours": 2,
+    "ctaText": "Deploy Rising Artist",
+    "active": true
+  },
+  {
+    "id": "headliner",
+    "name": "Headliner Elite Plan",
+    "description": "Best for established touring acts, high-frequency producers, and boutique record labels.",
+    "basePrice": 1399,
+    "featured": false,
+    "includedServices": [
+      "Everything in Rising Artist",
+      "High-volume creative outputs",
+      "Spotify Canvas loops (up to 3 tracks)",
+      "Custom 3D album cover art design",
+      "Lyric video clip animations",
+      "Press Release (PR) distribution pack",
+      "Priority rollout support & label coordination",
+      "Dedicated VA support for 4 hours",
+      "VA supports booking, sponsors & sync licensing admin"
+    ],
+    "monthlyOutputs": [
+      "30 custom high-tier graphics per month",
+      "12 short-form edited video assets per month",
+      "Daily high-reach posting",
+      "Priority community response moderation",
+      "3 social/music channels included",
+      "Dedicated VA: 4 hours per day"
+    ],
+    "platformsIncluded": 3,
+    "vaHours": 4,
+    "ctaText": "Deploy Headliner Elite",
+    "active": true
+  }
+]
