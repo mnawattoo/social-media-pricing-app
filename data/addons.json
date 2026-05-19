@@ -1,0 +1,82 @@
+[
+  {
+    "id": "playlist-pitch",
+    "name": "Spotify Playlist Pitching",
+    "description": "Outreach and pitch delivery to independent curators and genre lists.",
+    "price": 150,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "tiktok-trend",
+    "name": "TikTok Trend Hype Campaign",
+    "description": "Strategy drafting and influencer audio pitching to trend your track sound.",
+    "price": 120,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "lyric-video",
+    "name": "Animated Lyric Video (up to 4m)",
+    "description": "High-fidelity custom animated lyric video for release promo.",
+    "price": 200,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "album-cover-3d",
+    "name": "Custom 3D Album Cover Art",
+    "description": "Professional 3D modeled single/album artwork meeting streaming dimensions.",
+    "price": 85,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "spotify-canvas",
+    "name": "Spotify Canvas Loop Animation",
+    "description": "Mesmerizing 8-second vertical loop animation matching stream specifications.",
+    "price": 40,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "epk-design",
+    "name": "Electronic Press Kit (EPK)",
+    "description": "Beautiful PDF and online EPK presenting bio, photos, tour schedule, and links.",
+    "price": 180,
+    "pricingType": "per_month",
+    "active": true
+  },
+  {
+    "id": "youtube-music-ads",
+    "name": "YouTube Music Ads Management",
+    "description": "Setup and optimization of targeting campaigns for music video releases.",
+    "price": 250,
+    "pricingType": "per_month",
+    "active": true
+  },
+  {
+    "id": "merch-graphics",
+    "name": "Vinyl/Merch Graphics Pack",
+    "description": "Print-ready graphics layout for T-shirts, hoodies, caps, and vinyl sleeves.",
+    "price": 95,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "soundcloud-growth",
+    "name": "SoundCloud Growth Campaign",
+    "description": "Targeted promo syndications to expand SoundCloud track streams & followers.",
+    "price": 75,
+    "pricingType": "per_item",
+    "active": true
+  },
+  {
+    "id": "concert-promo",
+    "name": "Concert/Tour Promo Reel",
+    "description": "High-octane teaser video compiled from live show/tour recordings.",
+    "price": 110,
+    "pricingType": "per_item",
+    "active": true
+  }
+]
