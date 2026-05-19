@@ -95,42 +95,61 @@ async function readCollection(collectionName) {
   }
 }
 
-// Helper to write collection
-async function writeCollection(collectionName, dataArray) {
+// Helper to save a single document (add or update)
+async function saveDocument(collectionName, docId, docData) {
   if (isFirebaseActive && firestoreDb) {
     try {
-      const batch = firestoreDb.batch();
-      
-      // Get all existing docs in this collection to clear them out (for plan/addon syncing)
-      const snapshot = await firestoreDb.collection(collectionName).get();
-      snapshot.forEach(doc => {
-        batch.delete(doc.ref);
-      });
-      
-      // Add new docs
-      dataArray.forEach(docData => {
-        const docId = docData.id || `doc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        const ref = firestoreDb.collection(collectionName).doc(docId);
-        batch.set(ref, docData);
-      });
-      
-      await batch.commit();
+      await firestoreDb.collection(collectionName).doc(docId).set(docData);
       return true;
     } catch (err) {
-      console.error(`Error writing Firestore collection '${collectionName}':`, err);
+      console.error(`Error saving Firestore document '${collectionName}/${docId}':`, err);
       return false;
     }
   } else {
     // Fallback JSON mode
-    const filepath = path.join(LOCAL_DATA_DIR, `${collectionName}.json`);
     try {
-      fs.writeFileSync(filepath, JSON.stringify(dataArray, null, 2));
+      let collection = await readCollection(collectionName);
+      const idx = collection.findIndex(item => item.id === docId);
+      if (idx !== -1) {
+        collection[idx] = docData;
+      } else {
+        collection.push(docData);
+      }
+      const filepath = path.join(LOCAL_DATA_DIR, `${collectionName}.json`);
+      fs.writeFileSync(filepath, JSON.stringify(collection, null, 2));
       return true;
     } catch (e) {
+      console.error(`Error saving JSON document '${collectionName}/${docId}':`, e);
       return false;
     }
   }
 }
+
+// Helper to delete a single document
+async function deleteDocument(collectionName, docId) {
+  if (isFirebaseActive && firestoreDb) {
+    try {
+      await firestoreDb.collection(collectionName).doc(docId).delete();
+      return true;
+    } catch (err) {
+      console.error(`Error deleting Firestore document '${collectionName}/${docId}':`, err);
+      return false;
+    }
+  } else {
+    // Fallback JSON mode
+    try {
+      let collection = await readCollection(collectionName);
+      const filtered = collection.filter(item => item.id !== docId);
+      const filepath = path.join(LOCAL_DATA_DIR, `${collectionName}.json`);
+      fs.writeFileSync(filepath, JSON.stringify(filtered, null, 2));
+      return true;
+    } catch (e) {
+      console.error(`Error deleting JSON document '${collectionName}/${docId}':`, e);
+      return false;
+    }
+  }
+}
+
 
 // Helper to read global settings document
 async function readSettings() {
@@ -252,11 +271,15 @@ module.exports = async (req, res) => {
         };
         
         if (newPlan.featured) {
-          plans.forEach(p => p.featured = false);
+          for (const p of plans) {
+            if (p.featured) {
+              p.featured = false;
+              await saveDocument('plans', p.id, p);
+            }
+          }
         }
         
-        plans.push(newPlan);
-        await writeCollection('plans', plans);
+        await saveDocument('plans', newPlan.id, newPlan);
         return res.status(201).json({ success: true, plan: newPlan });
       }
       
@@ -270,7 +293,12 @@ module.exports = async (req, res) => {
         if (idx === -1) return res.status(404).json({ error: 'Plan not found', success: false });
         
         if (body.featured) {
-          plans.forEach(p => p.featured = false);
+          for (const p of plans) {
+            if (p.id !== body.id && p.featured) {
+              p.featured = false;
+              await saveDocument('plans', p.id, p);
+            }
+          }
         }
         
         const updatedPlan = {
@@ -287,8 +315,7 @@ module.exports = async (req, res) => {
           active: body.active !== undefined ? body.active !== false : plans[idx].active
         };
         
-        plans[idx] = updatedPlan;
-        await writeCollection('plans', plans);
+        await saveDocument('plans', updatedPlan.id, updatedPlan);
         return res.status(200).json({ success: true, plan: updatedPlan });
       }
       
@@ -301,8 +328,7 @@ module.exports = async (req, res) => {
         const idx = plans.findIndex(p => p.id === id);
         if (idx === -1) return res.status(404).json({ error: 'Plan not found', success: false });
         
-        plans.splice(idx, 1);
-        await writeCollection('plans', plans);
+        await deleteDocument('plans', id);
         return res.status(200).json({ success: true, message: 'Plan deleted successfully' });
       }
     }
@@ -337,8 +363,7 @@ module.exports = async (req, res) => {
           active: body.active !== false
         };
         
-        addons.push(newAddon);
-        await writeCollection('addons', addons);
+        await saveDocument('addons', newAddon.id, newAddon);
         return res.status(201).json({ success: true, addon: newAddon });
       }
       
@@ -360,8 +385,7 @@ module.exports = async (req, res) => {
           active: body.active !== undefined ? body.active !== false : addons[idx].active
         };
         
-        addons[idx] = updatedAddon;
-        await writeCollection('addons', addons);
+        await saveDocument('addons', updatedAddon.id, updatedAddon);
         return res.status(200).json({ success: true, addon: updatedAddon });
       }
       
@@ -374,8 +398,7 @@ module.exports = async (req, res) => {
         const idx = addons.findIndex(a => a.id === id);
         if (idx === -1) return res.status(404).json({ error: 'Add-on not found', success: false });
         
-        addons.splice(idx, 1);
-        await writeCollection('addons', addons);
+        await deleteDocument('addons', id);
         return res.status(200).json({ success: true, message: 'Add-on deleted successfully' });
       }
     }
@@ -429,7 +452,6 @@ module.exports = async (req, res) => {
           return res.status(400).json({ error: 'Name and Email are required', success: false });
         }
         
-        let leads = await readCollection('leads');
         const newLead = {
           id: `lead-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`,
           name: body.name,
@@ -443,8 +465,7 @@ module.exports = async (req, res) => {
           createdAt: new Date().toISOString()
         };
         
-        leads.push(newLead);
-        await writeCollection('leads', leads);
+        await saveDocument('leads', newLead.id, newLead);
         return res.status(201).json({ success: true, lead: newLead });
       }
     }
