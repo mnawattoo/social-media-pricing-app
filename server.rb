@@ -2,12 +2,25 @@ require 'webrick'
 require 'json'
 require 'fileutils'
 
-PORT = 3000
+PORT = (ENV['PORT'] || 3000).to_i
 DATA_DIR = File.expand_path('../data', __FILE__)
 PUBLIC_DIR = File.expand_path('../public', __FILE__)
 
 # Ensure data directory exists
 FileUtils.mkdir_p(DATA_DIR)
+
+# Auto-populate missing database files from defaults (critical for persistent disk mounts)
+DEFAULTS_DIR = File.expand_path('../data_defaults', __FILE__)
+if File.exist?(DEFAULTS_DIR)
+  Dir.glob(File.join(DEFAULTS_DIR, '*.json')).each do |default_file|
+    filename = File.basename(default_file)
+    active_file = File.join(DATA_DIR, filename)
+    if !File.exist?(active_file)
+      puts "Initializing active database file: #{filename} from defaults..."
+      FileUtils.cp(default_file, active_file)
+    end
+  end
+end
 
 # Helper to read JSON database
 def read_db(filename)
@@ -358,6 +371,7 @@ end
 # Create server instance
 server = WEBrick::HTTPServer.new(
   Port: PORT,
+  BindAddress: '0.0.0.0',
   DocumentRoot: PUBLIC_DIR,
   AccessLog: [],
   Logger: WEBrick::Log.new(nil, WEBrick::BasicLog::WARN) # Silent, cleaner logs
