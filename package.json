@@ -1,0 +1,9 @@
+{
+  "name": "beatpulse-agency-pricing-platform",
+  "version": "1.0.0",
+  "description": "Music Industry pricing platform and release campaign calculator hosted on Vercel.",
+  "main": "api/index.js",
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}
