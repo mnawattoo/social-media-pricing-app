@@ -1,9 +1,22 @@
 {
-  "name": "beatpulse-agency-pricing-platform",
+  "name": "beatpulse-agency-react",
+  "private": true,
   "version": "1.0.0",
-  "description": "Music Industry pricing platform and release campaign calculator hosted on Vercel.",
-  "main": "api/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5"
   }
 }
