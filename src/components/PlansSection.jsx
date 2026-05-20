@@ -45,7 +45,7 @@ export default function PlansSection({ plans, loading, settings, onSelectPlan })
                 <div className="plan-price-box">
                   <span className="plan-currency">{currencySymbol}</span>
                   <span className="plan-price">{plan.basePrice}</span>
-                  <span className="plan-period">/ month</span>
+                  <span className="plan-period">/ week</span>
                 </div>
 
                 <div className="plan-divider"></div>
