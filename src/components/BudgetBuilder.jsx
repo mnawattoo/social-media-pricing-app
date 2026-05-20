@@ -130,7 +130,7 @@ export default function BudgetBuilder({ plans, addons, settings, activePlan, set
     <section id="calculator" className="calc-section">
       <div className="container">
         <h2 className="section-title">Release <span className="gradient-text">Budget Builder</span></h2>
-        <p className="section-subtitle">Select your baseline plan and add specialized music campaign add-ons. Watch your monthly rollout budget calculate in real-time instantly.</p>
+        <p className="section-subtitle">Select your baseline plan and add specialized music campaign add-ons. Watch your campaign rollout budget calculate in real-time instantly.</p>
         
         <div className="calc-grid">
           {/* Inputs Section (Left Panel) */}
@@ -149,7 +149,7 @@ export default function BudgetBuilder({ plans, addons, settings, activePlan, set
                     onClick={() => setActivePlan(plan)}
                   >
                     <h4>{plan.name}</h4>
-                    <p>{currencySymbol}{plan.basePrice}/mo</p>
+                    <p>{currencySymbol}{plan.basePrice}/wk</p>
                   </button>
                 ))}
               </div>
@@ -230,7 +230,7 @@ export default function BudgetBuilder({ plans, addons, settings, activePlan, set
 
             {activePlan && (
               <div className="summary-plan-details">
-                <div>Base Price: <strong>{currencySymbol}{basePrice}/mo</strong></div>
+                <div>Base Price: <strong>{currencySymbol}{basePrice}/wk</strong></div>
                 <div>Platforms included: <strong>{activePlan.platformsIncluded} channel(s)</strong></div>
                 {activePlan.vaHours > 0 && (
                   <div>Dedicated VA support: <strong>{activePlan.vaHours} hrs/day</strong></div>
@@ -276,7 +276,7 @@ export default function BudgetBuilder({ plans, addons, settings, activePlan, set
               <span className="total-label">Total Rollout Investment</span>
               <div className="total-price-box">
                 <span className="total-price">{currencySymbol}{grandTotal}</span>
-                <span className="total-period">/ month</span>
+                <span className="total-period">/ week</span>
               </div>
             </div>
 
@@ -312,7 +312,7 @@ export default function BudgetBuilder({ plans, addons, settings, activePlan, set
                   </div>
                   <div className="modal-summary-right">
                     <div className="modal-summary-price">{currencySymbol}{grandTotal}</div>
-                    <div className="modal-summary-period">per month</div>
+                    <div className="modal-summary-period">per week</div>
                   </div>
                 </div>
               )}
