@@ -780,7 +780,7 @@ export default function AdminPortal({
                     <th>Company</th>
                     <th>Custom Scope Summary</th>
                     <th>Notes / Message</th>
-                    <th>Monthly value</th>
+                    <th>Campaign value</th>
                     <th>Received</th>
                   </tr>
                 </thead>
@@ -948,7 +948,7 @@ export default function AdminPortal({
                 />
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="plan-form-price">Base Monthly Price ($) *</label>
+                <label className="form-label" htmlFor="plan-form-price">Base Weekly Price ({currencySymbol}) *</label>
                 <input
                   type="number"
                   className="form-input"
@@ -1049,13 +1049,13 @@ export default function AdminPortal({
 
             {/* Dynamic List Builder for Monthly Outputs */}
             <div className="form-group">
-              <label className="form-label">Monthly Deliverables List (Outputs)</label>
+              <label className="form-label">Deliverables List (Outputs)</label>
               <div className="list-builder">
                 <div className="list-builder-row">
                   <input
                     type="text"
                     className="form-input"
-                    placeholder="e.g. 20 static graphics per month"
+                    placeholder="e.g. 20 static graphics per month or 3 posts per week"
                     style={{ flexGrow: 1 }}
                     value={newOutput}
                     onChange={(e) => setNewOutput(e.target.value)}
@@ -1146,7 +1146,7 @@ export default function AdminPortal({
 
             <div className="form-row-2">
               <div className="form-group">
-                <label className="form-label" htmlFor="addon-form-price">Price ($) *</label>
+                <label className="form-label" htmlFor="addon-form-price">Price ({currencySymbol}) *</label>
                 <input
                   type="number"
                   className="form-input"
