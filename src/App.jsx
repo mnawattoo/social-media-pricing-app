@@ -9,7 +9,7 @@ export default function App() {
   const [addons, setAddons] = useState([]);
   const [settings, setSettings] = useState({
     agencyName: 'BeatPulse',
-    currency: '$',
+    currency: '£',
     contactEmail: 'contact@beatpulse.co',
     contactPhone: '(555) 123-4567',
     activePlanFeaturedLabel: 'Most Popular'
@@ -273,9 +273,9 @@ export default function App() {
                 </tr>
                 <tr>
                   <td>Music / Social Channels</td>
-                  <td>1 Channel</td>
                   <td>2 Channels</td>
                   <td>3 Channels</td>
+                  <td>5 Channels</td>
                 </tr>
                 <tr>
                   <td>Dedicated Label/Artist VA</td>
@@ -291,8 +291,8 @@ export default function App() {
                 <tr>
                   <td>Playlist Curator &amp; Fan Outreach</td>
                   <td>Basic Curator outreach</td>
-                  <td>Dedicated outreach</td>
-                  <td>Priority curators &amp; direct list pitches</td>
+                  <td>Proactive playlist outreach</td>
+                  <td>Proactive outreach + PR list pitching</td>
                 </tr>
                 <tr>
                   <td>Press Release &amp; Promo Pitching</td>
@@ -303,8 +303,8 @@ export default function App() {
                 <tr>
                   <td>Release Stream &amp; Reach Analysis</td>
                   <td>Summary PDF</td>
-                  <td>Monthly Dashboard</td>
-                  <td>Bi-Weekly Call + Analysis</td>
+                  <td>Monthly Review</td>
+                  <td>Daily AM Support + Label Coordination</td>
                 </tr>
               </tbody>
             </table>
@@ -364,7 +364,7 @@ export default function App() {
               </button>
               {faqOpen[3] && (
                 <div className="faq-answer">
-                  None at all. Music marketing runs on a flexible, month-to-month contract. You can upgrade, downgrade, pause, or shift your package at any time with a 14-day notice prior to your next monthly billing cycle.
+                  None at all. Music marketing runs on a flexible, week-to-week contract. You can upgrade, downgrade, pause, or shift your package at any time with a 7-day notice prior to your next weekly billing cycle.
                 </div>
               )}
             </div>
