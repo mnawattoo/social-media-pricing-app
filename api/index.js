@@ -403,6 +403,62 @@ module.exports = async (req, res) => {
       }
     }
 
+    // 2.5 Force Reseed Endpoint
+    if (pathName === '/api/admin/force-reseed') {
+      if (method === 'POST') {
+        if (!isAuthorized(req)) return res.status(401).json({ error: 'Unauthorized', success: false });
+        
+        console.log("🔄 Force-reseeding Firestore database collections...");
+        
+        // 1. Delete and Re-seed Plans
+        if (isFirebaseActive && firestoreDb) {
+          // Delete existing plans in Firestore
+          const plansSnap = await firestoreDb.collection('plans').get();
+          const plansBatch = firestoreDb.batch();
+          plansSnap.forEach(doc => plansBatch.delete(doc.ref));
+          await plansBatch.commit();
+          
+          // Seed new plans
+          const plansDefaults = readDefaultFile('plans.json') || [];
+          for (const plan of plansDefaults) {
+            await firestoreDb.collection('plans').doc(plan.id).set(plan);
+          }
+          
+          // Delete existing addons in Firestore
+          const addonsSnap = await firestoreDb.collection('addons').get();
+          const addonsBatch = firestoreDb.batch();
+          addonsSnap.forEach(doc => addonsBatch.delete(doc.ref));
+          await addonsBatch.commit();
+          
+          // Seed new addons
+          const addonsDefaults = readDefaultFile('addons.json') || [];
+          for (const addon of addonsDefaults) {
+            await firestoreDb.collection('addons').doc(addon.id).set(addon);
+          }
+          
+          // Reset settings
+          const settingsDefaults = readDefaultFile('settings.json') || {};
+          await firestoreDb.collection('settings').doc('global').set(settingsDefaults);
+          
+          console.log("✅ Firestore database successfully force-reseeded.");
+        } else {
+          // Fallback local JSON mode reseed
+          const plansDefaults = readDefaultFile('plans.json') || [];
+          fs.writeFileSync(path.join(LOCAL_DATA_DIR, 'plans.json'), JSON.stringify(plansDefaults, null, 2));
+          
+          const addonsDefaults = readDefaultFile('addons.json') || [];
+          fs.writeFileSync(path.join(LOCAL_DATA_DIR, 'addons.json'), JSON.stringify(addonsDefaults, null, 2));
+          
+          const settingsDefaults = readDefaultFile('settings.json') || {};
+          fs.writeFileSync(path.join(LOCAL_DATA_DIR, 'settings.json'), JSON.stringify(settingsDefaults, null, 2));
+          
+          console.log("✅ Local fallback files successfully force-reseeded.");
+        }
+        
+        return res.status(200).json({ success: true, message: 'Database successfully reseeded to new weekly plans and add-ons!' });
+      }
+    }
+
     // 3. Settings Endpoint
     if (pathName === '/api/settings') {
       if (method === 'GET') {
